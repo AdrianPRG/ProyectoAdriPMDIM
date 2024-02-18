@@ -1,0 +1,101 @@
+{
+  "name": "registrar",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "tcO5eXa27KAm1IafkVJlFi",
+    "node": "57:69",
+    "version": "5162035497",
+    "component-id": "c1c5fe821ab0c9cda7b4f75ed949d26997ea005d"
+  },
+  "default": "registrar",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "Registrarme"
+      }
+    ],
+    "modes": {
+      "registrar": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": "27.0",
+            "tap-handler": "$on_registrar_tapped",
+            "is-structured": "false",
+            "children": [
+              "Registrarme"
+            ],
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "124.73684210526314",
+              "saturation": "0.2567567567567568",
+              "value": "0.5803921568627451"
+            }
+          },
+          {
+            "id": "Registrarme",
+            "alignment": {
+              "horizontal": {
+                "attachment": "center",
+                "offset": "0.5"
+              },
+              "vertical": {
+                "attachment": "center",
+                "offset": "0.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "101.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "25.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            },
+            "text-content": "Registrarme",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align-vertical": "center",
+            "text-size": "20.0",
+            "line-height": "1.3979999542236328",
+            "typeface": "Jockey One"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "on_registrar_tapped": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "registrar",
+      "size": {
+        "width": 126.0,
+        "height": 51.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

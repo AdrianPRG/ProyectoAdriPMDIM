@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "343646656568",
+    "project_id": "proyectoadripmdmdim",
+    "storage_bucket": "proyectoadripmdmdim.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343646656568:android:1aa8b5516add052a9baecd",
+        "android_client_info": {
+          "package_name": "com.alopgal962.proyectoadripmdim"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6q-x3NiB0c2KmNx7hn86FJILrmKxbAcc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

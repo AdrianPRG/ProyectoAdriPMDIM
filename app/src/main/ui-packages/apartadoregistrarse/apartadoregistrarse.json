@@ -1,0 +1,91 @@
+{
+  "name": "apartadoregistrarse",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "tcO5eXa27KAm1IafkVJlFi",
+    "node": "57:60",
+    "version": "5162005104",
+    "component-id": "242b59840ce31f03ab406665c905b971dd6a58ea"
+  },
+  "default": "apartadoregistrarse",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "Registrarse"
+      }
+    ],
+    "modes": {
+      "apartadoregistrarse": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": "false",
+            "children": [
+              "Registrarse"
+            ],
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "208.33333333333334",
+              "saturation": "0.5070422535211268",
+              "value": "0.2784313725490196"
+            }
+          },
+          {
+            "id": "Registrarse",
+            "alignment": {
+              "horizontal": {
+                "attachment": "center",
+                "offset": "0.5"
+              },
+              "vertical": {
+                "attachment": "center",
+                "offset": "-12.5"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "181.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "53.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            },
+            "text-content": "Registrarse",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align": "left",
+            "text-size": "64.0",
+            "typeface": "Jomhuria"
+          }
+        ]
+      }
+    }
+  },
+  "previews": [
+    {
+      "design": "apartadoregistrarse",
+      "size": {
+        "width": 360.0,
+        "height": 196.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

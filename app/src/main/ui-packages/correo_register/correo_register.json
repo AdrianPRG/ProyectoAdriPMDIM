@@ -1,0 +1,103 @@
+{
+  "name": "correo_register",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "tcO5eXa27KAm1IafkVJlFi",
+    "node": "57:66",
+    "version": "5162015860",
+    "component-id": "e555ba1b014cb241721260175d7193e56c924432"
+  },
+  "default": "correoRegister",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "Introduce tu correo electronico..."
+      }
+    ],
+    "modes": {
+      "correoRegister": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": "13.0",
+            "is-structured": "false",
+            "children": [
+              "Introduce tu correo electronico..."
+            ],
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "208.33333333333334",
+              "saturation": "0.5070422535211268",
+              "value": "0.2784313725490196"
+            }
+          },
+          {
+            "id": "Introduce tu correo electronico...",
+            "alignment": {
+              "horizontal": {
+                "attachment": "center",
+                "offset": "0.0"
+              },
+              "vertical": {
+                "attachment": "center",
+                "offset": "0.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "185.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "28.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.9529411764705882"
+            },
+            "text-content": "$correo_register_text",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align-vertical": "center",
+            "text-size": "15.0",
+            "line-height": "1.3979999542236328",
+            "typeface": "Jockey One"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "correo_register_text": {
+      "data-type": "text",
+      "required": false,
+      "description": "Para escribir el correo"
+    }
+  },
+  "previews": [
+    {
+      "design": "correoRegister",
+      "size": {
+        "width": 233.0,
+        "height": 50.0
+      },
+      "parameters": {
+        "correo_register_text": "Introduce tu correo electronico..."
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}
