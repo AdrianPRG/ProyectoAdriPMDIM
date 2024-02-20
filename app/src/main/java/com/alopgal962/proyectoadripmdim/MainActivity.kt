@@ -3,18 +3,22 @@ package com.alopgal962.proyectoadripmdim
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.alopgal962.proyectoadripmdim.ui.screens.ScreenRegister
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.alopgal962.proyectoadripmdim.VM.VMFire
+import com.alopgal962.proyectoadripmdim.ui.screens.LoginScreen
+import com.alopgal962.proyectoadripmdim.ui.screens.RegisterScreen
 import com.alopgal962.proyectoadripmdim.ui.theme.ProyectoAdriPMDIMTheme
-import com.google.firebase.analytics.FirebaseAnalytics
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -24,12 +28,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    /*val analytics = FirebaseAnalytics.getInstance(this)
-                    val bundle=Bundle()
-                    bundle.putString("message","Firebase bien")
-                    analytics.logEvent("InitScreen", bundle)
-                     */
-                    ScreenRegister()
+                    val viewmodelFire:VMFire by viewModels()
+                    val navController = rememberNavController()
+                    NavHost(navController = navController, startDestination = "Register" ){
+                        composable("Register"){ RegisterScreen(navController,viewmodelFire) }
+                        composable("Login"){ LoginScreen(navController)}
+                    }
                 }
             }
         }
