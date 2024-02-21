@@ -20,6 +20,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,11 +33,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.alopgal962.proyectoadripmdim.R
+import com.alopgal962.proyectoadripmdim.VM.VMFire
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavController,ViewmodelVM: VMFire) {
+    var correo by ViewmodelVM.correoelectronico
+    var contrasena by ViewmodelVM.contrasena
     Scaffold(topBar = {
         Row(
             Modifier
@@ -65,8 +70,8 @@ fun LoginScreen(navController: NavController) {
                 Modifier.size(105.dp, 100.dp)
             )
             TextField(
-                value = "",
-                onValueChange = { },
+                value = correo,
+                onValueChange = { correo = it },
                 label = {
                     Text(
                         "Introduce tu correo electronico",
@@ -87,8 +92,8 @@ fun LoginScreen(navController: NavController) {
                 colors = TextFieldDefaults.textFieldColors(containerColor = Color.White)
             )
             TextField(
-                value = "",
-                onValueChange = { },
+                value = contrasena,
+                onValueChange = { contrasena = it },
                 label = {
                     Text(
                         "Introduce tu contraseña",
@@ -109,7 +114,7 @@ fun LoginScreen(navController: NavController) {
                 colors = TextFieldDefaults.textFieldColors(containerColor = Color.White)
             )
             Button(
-                onClick = { navController.navigate("Register") },
+                onClick = { ViewmodelVM.iniciarsesion { navController.navigate("Main") } },
                 modifier = Modifier
                     .size(150.dp, 80.dp)
                     .padding(top = 30.dp),

@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.alopgal962.proyectoadripmdim.VM.VMFire
 import com.alopgal962.proyectoadripmdim.ui.screens.LoginScreen
+import com.alopgal962.proyectoadripmdim.ui.screens.MainScreen
 import com.alopgal962.proyectoadripmdim.ui.screens.RegisterScreen
 import com.alopgal962.proyectoadripmdim.ui.theme.ProyectoAdriPMDIMTheme
 
@@ -32,7 +33,8 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = "Register" ){
                         composable("Register"){ RegisterScreen(navController,viewmodelFire) }
-                        composable("Login"){ LoginScreen(navController)}
+                        composable("Login"){ LoginScreen(navController,viewmodelFire)}
+                        composable("Main"){ MainScreen(navController,viewmodelFire )}
                     }
                 }
             }

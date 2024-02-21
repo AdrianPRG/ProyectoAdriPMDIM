@@ -146,8 +146,7 @@ fun RegisterScreen(navController: NavController, ViewmodelVM: VMFire) {
                 horizontalArrangement = Arrangement.Center
             ) {
                 Button(
-                    onClick = { ViewmodelVM.crearemailycontrasena()
-                              ViewmodelVM.navegaono(navController.navigate("Login"))},
+                    onClick = { ViewmodelVM.crearemailycontrasena({navController.navigate("Login")})},
                     modifier = Modifier
                         .clip(RoundedCornerShape(20.dp))
                         .size(150.dp, 70.dp),
