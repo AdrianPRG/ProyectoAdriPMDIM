@@ -89,7 +89,9 @@ fun LoginScreen(navController: NavController,ViewmodelVM: VMFire) {
                     )
                     .padding(top = 30.dp)
                     .size(290.dp, 60.dp),
-                colors = TextFieldDefaults.textFieldColors(containerColor = Color.White)
+                colors = TextFieldDefaults.textFieldColors(containerColor = Color.White),
+                maxLines = 1
+
             )
             TextField(
                 value = contrasena,
@@ -111,7 +113,8 @@ fun LoginScreen(navController: NavController,ViewmodelVM: VMFire) {
                     )
                     .padding(top = 30.dp)
                     .size(290.dp, 60.dp),
-                colors = TextFieldDefaults.textFieldColors(containerColor = Color.White)
+                colors = TextFieldDefaults.textFieldColors(containerColor = Color.White),
+                maxLines = 1
             )
             Button(
                 onClick = { ViewmodelVM.iniciarsesion { navController.navigate("Main") } },

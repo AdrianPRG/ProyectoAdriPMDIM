@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val viewmodelFire:VMFire by viewModels()
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "Register" ){
+                    NavHost(navController = navController, startDestination = "Main" ){
                         composable("Register"){ RegisterScreen(navController,viewmodelFire) }
                         composable("Login"){ LoginScreen(navController,viewmodelFire)}
                         composable("Main"){ MainScreen(navController,viewmodelFire )}

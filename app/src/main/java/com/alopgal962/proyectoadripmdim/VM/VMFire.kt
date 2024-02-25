@@ -26,6 +26,7 @@ class VMFire : ViewModel() {
                 .addOnCompleteListener() {
                     if (it.isSuccessful) {
                         navega()
+                        iniciarcampos()
                     } else {
                         Log.d("USERERROR", "no se ha registrado")
                     }
@@ -36,7 +37,7 @@ class VMFire : ViewModel() {
 
     fun iniciarsesion(navega: () -> Unit){
         if (correoelectronico.value!="" && contrasena.value!=""){
-            firebaseauth.signInWithEmailAndPassword(correoelectronico.value,contrasena.value).addOnCompleteListener {
+            firebaseauth.signInWithEmailAndPassword(correoelectronico.value,contrasena.value).addOnCompleteListener() {
                 if (it.isSuccessful){
                     navega()
                 }
@@ -46,6 +47,10 @@ class VMFire : ViewModel() {
         }
     }
 
+    fun iniciarcampos(){
+        correoelectronico.value=""
+        contrasena.value=""
+    }
 
     fun borrarcampos() {
         correoelectronico.value = ""
