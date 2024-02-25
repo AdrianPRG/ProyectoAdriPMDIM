@@ -72,7 +72,8 @@ fun RegisterScreen(navController: NavController, ViewmodelVM: VMFire) {
                 contentDescription = "Foto Usuario",
                 Modifier.size(105.dp, 100.dp)
             )
-            TextField(value = email,
+            TextField(
+                value = email,
                 onValueChange = { email = it },
                 label = {
                     Text(
@@ -91,10 +92,14 @@ fun RegisterScreen(navController: NavController, ViewmodelVM: VMFire) {
                         )
                     )
                     .padding(top = 20.dp),
-                colors = TextFieldDefaults.textFieldColors(containerColor = Color(35, 54, 71), textColor = Color.White),
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = Color(35, 54, 71),
+                    textColor = Color.White
+                ),
                 maxLines = 1
             )
-            TextField(value = contrasena,
+            TextField(
+                value = contrasena,
                 onValueChange = { contrasena = it },
                 label = {
                     Text(
@@ -113,10 +118,14 @@ fun RegisterScreen(navController: NavController, ViewmodelVM: VMFire) {
                         )
                     )
                     .padding(top = 20.dp),
-                colors = TextFieldDefaults.textFieldColors(containerColor = Color(35, 54, 71), textColor = Color.White),
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = Color(35, 54, 71),
+                    textColor = Color.White
+                ),
                 maxLines = 1
             )
-            TextField(value = repitecontrasena,
+            TextField(
+                value = repitecontrasena,
                 onValueChange = { repitecontrasena = it },
                 label = {
                     Text(
@@ -135,7 +144,10 @@ fun RegisterScreen(navController: NavController, ViewmodelVM: VMFire) {
                         )
                     )
                     .padding(top = 20.dp),
-                colors = TextFieldDefaults.textFieldColors(containerColor = Color(35, 54, 71), textColor = Color.White),
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = Color(35, 54, 71),
+                    textColor = Color.White
+                ),
                 maxLines = 1
             )
             Row(
@@ -146,8 +158,7 @@ fun RegisterScreen(navController: NavController, ViewmodelVM: VMFire) {
                 horizontalArrangement = Arrangement.Center
             ) {
                 Button(
-                    onClick = { ViewmodelVM.crearemailycontrasena()
-                              ViewmodelVM.navegaono(navController.navigate("Login"))},
+                    onClick = { ViewmodelVM.crearemailycontrasena({ navController.navigate("Login") }) },
                     modifier = Modifier
                         .clip(RoundedCornerShape(20.dp))
                         .size(150.dp, 70.dp),
