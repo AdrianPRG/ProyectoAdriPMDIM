@@ -31,7 +31,7 @@ class AppViewmodel : ViewModel() {
     var firebaseauth = Firebase.auth
     var firebasefirestore = Firebase.firestore
 
-    var pulsado = mutableStateOf(false)
+    var pulsado by mutableStateOf(false)
 
 
     var nombre by mutableStateOf("")
@@ -85,6 +85,7 @@ class AppViewmodel : ViewModel() {
      * Recibe una serie, y llama a la instancia de firestore, llama a la coleccion Series, y le crea un nuevo documento
      * donde asigna el campo email al email de firebase Autentication, el nombre al nombre de la serie pasada por parametos
      * puntuacion a la puntuacion de la serie, y asi con los demas campos.
+     * @param serie es la serie que se le pasa y que se introducirá a la base de datos
      */
 
     fun meterSerie(serie: Serie) {
@@ -109,10 +110,10 @@ class AppViewmodel : ViewModel() {
 
     /*
        Esta funcion se ejecuta en una corrutina, para sea de manera asincrona.
-       Dentro de un bloque try-catch, hace una consulta a la coleccion 'series' de firebase, y le pide que le devuelva los documentos donde el campo
-       email sea igual al del usuario actual de la aplicacion
+       Dentro de un bloque try-catch, hace una consulta a la coleccion 'series' de firebase, y le pide que
+        devuelva los documentos donde el campo email sea igual al del usuario actual de la aplicacion
        Para cada documento se crea una serie,se le asigna los campos a los atributos de la serie y se añade a una lista temporal.
-       Una vez finalizado el bucle, se guarda la lista en la mutable
+       Una vez finalizado el bucle,los datos de la lista se guardan en la lista de la clase viewmodel.
      */
     fun obtenerSeries() {
         viewModelScope.launch {
@@ -139,22 +140,16 @@ class AppViewmodel : ViewModel() {
     }
 
 
-    /**
-     * FIRESTORE USER
+    /*
+    Esta funcion contiene dos variables locales, numseries y media, ahora veremos para que sirven
+    En una corrutina, se pide a firebase los documentos de la coleccion series
+    Por cada documento/serie, se suma uno a la variable numseries, y se va sumando la variable media cada puntuacion
+    de cada serie
+    Una vez finalizado el bucle, se asigna la variable 'numseries' a la variable 'numdeseriesuser', que guarda este estado
+    A continuacion, la variable media se divide ente el numero de series (puntuacion/numero de series), e igualmente se guarda
+    en la variable de estado mediadeUser
+
      */
-
-    fun meterdatosUsuario(){
-        viewModelScope.launch {
-            try {
-                firebasefirestore.collection("Users").document(firebaseauth.currentUser!!.email.toString()).set{
-                }
-            }
-            catch (e:Exception){
-                Log.d("Error/InsertarDatos","Error al insertar/actualizar los datos de usuario")
-            }
-        }
-    }
-
     fun obtenerdatosUsuario(){
         var numseries=0
         var media=0f

@@ -11,27 +11,33 @@ import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.launch
 
+/**
+ * @author AdrianPRG
+ *
+ * @property correoelectronico varible mutablestateof que guarda en string la direccion de correo introducida por el usuario
+ * @property contrasena variable mutablestateof que guarda la contraseña del correo electronico
+ * @property repitecontrasena variable mutablestateof que guarda tambien un valor que debe ser igual a la variable 'contraseña'
+ * @property firebaseauth instancia de el modulo de autenticacion de firebase
+ * @property firebasefirestore instancia del modulo de firestore de firebase
+ */
 class LoginRegisterViewmodel:ViewModel() {
 
-    /*
-      Campos que maneja el viewmodel sobre el usuario
-      Correo, contraseña, y repetir contraseña
-    */
 
     var correoelectronico by mutableStateOf("")
     var contrasena by mutableStateOf("")
     var repitecontrasena by mutableStateOf("")
 
-    /*
-      Instancias de los modulos de firebase
-     */
 
     var firebaseauth = Firebase.auth
     var firebasefirestore = Firebase.firestore
 
+
     /**
-     * FIREBASE
-     * AUTENTICACION
+     * Esta funcion comprueba si los valores de correo y contraseña no son nulos, ademas de si la contraseña
+     * que se ha introducido es igual al de repitecontraseña, si es asi, se llama a la instancia de firebaseauth y se
+     * utiliza la funcion createuserwithemailandpassword, la cual se le pasa por parametros el correo y la contraseña
+     * Si se crea correctamente se ejecuta la función lambda que se pasa por parametros.
+     * @param navega es una funcion lambda que se ejecuta si se crea correctamente el usuario
      */
     fun crearemailycontrasena(navega: () -> Unit) {
         if (correoelectronico.isNotEmpty() && contrasena.isNotEmpty() && contrasena == repitecontrasena) {
@@ -47,6 +53,14 @@ class LoginRegisterViewmodel:ViewModel() {
         } else
             Log.d("CAMPOS-VACIOS", "Los campos estan vacios")
     }
+
+    /**
+     * La funcion inciarsesion primero comprueba si el correo electronico y la contraseña estan vacios,
+     * si no lo estan, se llama a la funcion de ingreso con correo y contraseña de firebase, pasandole por
+     * parametros el correo y contraseña
+     * Si el inicio de sesion es correcto, se ejecuta la funcion lambda que se pasa por parametros.
+     * @param navega es una funcion lambda que se ejecutará si el usuario accede correctamente.
+     */
 
     fun iniciarsesion(navega: () -> Unit) {
         if (correoelectronico != "" && contrasena != "") {
@@ -72,6 +86,10 @@ class LoginRegisterViewmodel:ViewModel() {
             }
         }
     }
+
+    /*
+    Esta funcion restablece los campos de registro/inicio de sesion
+     */
 
     fun borrarcampos() {
         correoelectronico = ""

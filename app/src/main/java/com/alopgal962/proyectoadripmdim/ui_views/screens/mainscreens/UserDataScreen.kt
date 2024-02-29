@@ -3,8 +3,12 @@ package com.alopgal962.proyectoadripmdim.ui_views.screens.mainscreens
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -43,11 +47,10 @@ fun UserDataScreen(navController: NavController,viewmodel:AppViewmodel){
             Modifier
                 .fillMaxSize()
                 .padding(top = 110.dp, bottom = 110.dp)
-                .background(color = Color(232, 239, 236)), horizontalAlignment = Alignment.CenterHorizontally) {
+                .background(color = Color(232, 239, 236)), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
             Column(
                 Modifier
-                    .size(320.dp, 370.dp)
-                    .padding(top = 40.dp)
+                    .size(330.dp, 300.dp)
                     .clip(
                         RoundedCornerShape(30.dp)
                     )
@@ -57,8 +60,18 @@ fun UserDataScreen(navController: NavController,viewmodel:AppViewmodel){
                     .padding(top = 10.dp), colorFilter = ColorFilter.tint(
                     Color.White))
                 Text(text = "Datos de: ${viewmodel.firebaseauth.currentUser!!.email}",Modifier.padding(top = 12.dp), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 21.sp, fontFamily = FontFamily.SansSerif)
-                Text(text = "Total de series calificadas  : ${viewmodel.numseriesdeUser}",Modifier.padding(top = 20.dp), color = Color.White)
-                Text(text = "Media de calificaciones : ${viewmodel.mediadeUser.toString().substring(0,3)} ⭐",Modifier.padding(top = 20.dp), color = Color.White)
+                Row(modifier = Modifier.padding(start = 12.dp)
+                    .fillMaxWidth()
+                    .height(70.dp),verticalAlignment = Alignment.CenterVertically) {
+                    Image(painter = painterResource(id = R.drawable.numeros), contentDescription = "Imagen numero calificaciones" , modifier = Modifier.size(50.dp,50.dp))
+                    Text(text = "Total de calificaciones: ${viewmodel.numseriesdeUser}",Modifier.align(Alignment.CenterVertically).padding(start = 8.dp), color = Color.White)
+                }
+                Row(modifier = Modifier.padding(start = 12.dp)
+                    .fillMaxWidth()
+                    .height(70.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Image(painter = painterResource(id = R.drawable.media), contentDescription = "Imagen media calificaciones",modifier = Modifier.size(50.dp,50.dp) )
+                    Text(text = "Media de calificaciones: ${viewmodel.mediadeUser.toString().substring(0,3)}",Modifier.align(Alignment.CenterVertically).padding(start = 2.dp), color = Color.White)
+                }
             }
         }
     }

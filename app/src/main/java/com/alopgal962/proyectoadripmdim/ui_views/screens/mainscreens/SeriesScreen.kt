@@ -45,71 +45,180 @@ import com.alopgal962.proyectoadripmdim.model.Serie
 import com.alopgal962.proyectoadripmdim.ui_views.screens.components.Bottombar
 import com.alopgal962.proyectoadripmdim.ui_views.screens.components.Topbar
 
+/**
+ * Esta funcion es la que contendra la pantalla donde se visualizarán las series.
+ * Contiene un scaffold con su topbar y bottombar y , dependiendo de el estado del atributo pulsado, se mostrarñá el alertdialog o la pantalla principal
+ * que consta de un lazyverticalgrid
+ * @param navController es el que se encarga de navegar entre pantallas
+ * @param viewmodel es el que contiene las funciones de viewmodel, en esta screen por ejemplo, la de obtener series, tambien el atributo pulsado, etc.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun SeriesScreens(navController: NavController,viewmodel:AppViewmodel){
-    Scaffold(topBar = { Topbar() }, bottomBar = { Bottombar(
-        onCasaClick = { navController.navigate(Routes.screenmain.route) },
-        onSeriesClick = { viewmodel.obtenerSeries() },
-        onUserClick = {navController.navigate(Routes.screenuser.route)
-        viewmodel.obtenerdatosUsuario()}
-        ) } ) {
-        if (viewmodel.pulsado.value==false){
-            Column(modifier = Modifier
-                .background(color = Color(232, 239, 236))
-                .fillMaxSize()
-                .padding(top = 110.dp, bottom = 110.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Column(Modifier.fillMaxWidth().height(535.dp)) {
-                    LazyVerticalGrid(columns = GridCells.Fixed(1), modifier = Modifier.padding(top = 20.dp), verticalArrangement = Arrangement.spacedBy(20.dp)){
-                       items(viewmodel.listaseries) { serie ->
-                           ShowSerie(Serie = serie)
+fun SeriesScreens(navController: NavController, viewmodel: AppViewmodel) {
+    Scaffold(topBar = { Topbar() }, bottomBar = {
+        Bottombar(
+            onCasaClick = { navController.navigate(Routes.screenmain.route) },
+            onSeriesClick = { viewmodel.obtenerSeries() },
+            onUserClick = {
+                navController.navigate(Routes.screenuser.route)
+                viewmodel.obtenerdatosUsuario()
+            }
+        )
+    }) {
+        if (viewmodel.pulsado == false) {
+            Column(
+                modifier = Modifier
+                    .background(color = Color(232, 239, 236))
+                    .fillMaxSize()
+                    .padding(top = 110.dp, bottom = 110.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Column(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(535.dp)) {
+                    /*
+                    A este lazyvertical grid se le pasa por parametro a los items la lista de series, que contiene
+                    las series recuperdas por la funcion obtener series del viewmodel.
+                    Por cada serie se llama a la funcion ShowSerie y se muestra por pantalla.
+                     */
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(1),
+                        modifier = Modifier.padding(top = 20.dp),
+                        verticalArrangement = Arrangement.spacedBy(20.dp)
+                    ) {
+                        items(viewmodel.listaseries) { serie ->
+                            ShowSerie(Serie = serie)
                         }
                     }
                 }
-                IconButton(onClick = {viewmodel.pulsado.value=true }, colors = IconButtonDefaults.iconButtonColors(containerColor = Color(124, 111, 206)), modifier = Modifier.padding( top = 16.dp,start = 290.dp).clip(
-                    RoundedCornerShape(10.dp))){
-                    Text(text = "+", color = Color.White, fontSize = 24.sp, textAlign = TextAlign.Center)
+                /*
+                Icono que al ser pulsado, pone el atributo de pulsado a true, llamando asi la funcion
+                AddSerie que contiene el AlertDialog para añadir nueva Serie.
+                 */
+                IconButton(
+                    onClick = { viewmodel.pulsado = true },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = Color(
+                            124,
+                            111,
+                            206
+                        )
+                    ),
+                    modifier = Modifier
+                        .padding(top = 16.dp, start = 290.dp)
+                        .clip(
+                            RoundedCornerShape(10.dp)
+                        )
+                ) {
+                    Text(
+                        text = "+",
+                        color = Color.White,
+                        fontSize = 24.sp,
+                        textAlign = TextAlign.Center
+                    )
                 }
             }
-        }
-        else
-            AddSerie(viewmodel = viewmodel, { viewmodel.pulsado.value = false })
+            /*
+            Si es true, se muestra el AlertDialog AddSerie, donde se le pasa el viewmodel, y la lambda del OnDismissRequest, el cual al pulsar fuera
+            pondra el estado de pulsado a falso
+             */
+        } else
+            AddSerie(viewmodel = viewmodel, { viewmodel.pulsado = false })
     }
 }
 
+/**
+ * La funcion Addserie contiene un AlertDialog que permite introducir los datos
+ * para crear una nueva serie.
+ * Esta funcion aparece cuando el atributo 'pulsado' de viewmodel es true
+ * Contiene los textfiels y el boton para introducir una serie
+ * @param viewmodel es el viewmodel al que se acceden a los datos y funciones.
+ * @param quitar es una funcion lambda que se ejecutara cuando el usuario pulse en un sitio que no sea el AlertDialog, en el caso,
+ * se pondra el atributo pulsado a false.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun AddSerie(viewmodel:AppViewmodel, quitar:() -> Unit){
+fun AddSerie(viewmodel: AppViewmodel, quitar: () -> Unit) {
     AlertDialog(
-        title = { Text(text = "Añadir Nueva Serie")},onDismissRequest = { quitar() }, confirmButton = {  },
-        text = { Column {
-        TextField(value = viewmodel.nombre, onValueChange = {viewmodel.nombre = it}, label = { Text(text = "Nombre de serie...")}, maxLines = 1, modifier = Modifier.padding(top = 5.dp) )
-        TextField(value =viewmodel.puntuacion, onValueChange = {viewmodel.puntuacion = it}, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number), label = { Text(text = "Puntuacion...")}, maxLines = 1,modifier = Modifier.padding(top = 10.dp) )
-        TextField(value = viewmodel.resena, onValueChange = {viewmodel.resena = it}, label = { Text(text = "Reseña de serie....")}, maxLines = 2,modifier = Modifier.padding(top = 10.dp) )
-        TextField(value = viewmodel.url, onValueChange = {viewmodel.url = it}, label = { Text(text = "URL de imagen (Puede ser nula)....")}, maxLines = 2,modifier = Modifier.padding(top = 10.dp) )
-            Button(onClick = { viewmodel.meterSerie(viewmodel.creaserie(viewmodel.nombre,viewmodel.puntuacion,viewmodel.resena,viewmodel.url))
-                viewmodel.datosACero()
-                viewmodel.pulsado.value=false
-                viewmodel.numseriesdeUser+=1
-                viewmodel.obtenerSeries()
-                             }, colors = ButtonDefaults.buttonColors(containerColor = Color.Black)) {
-                Text(text = "Añadir", color = Color.White,modifier =  Modifier.padding(5.dp))
+        title = { Text(text = "Añadir Nueva Serie") },
+        onDismissRequest = { quitar() },
+        confirmButton = { /* */ },
+        text = {
+            Column {
+                TextField(
+                    value = viewmodel.nombre,
+                    onValueChange = { viewmodel.nombre = it },
+                    label = { Text(text = "Nombre de serie...") },
+                    maxLines = 1,
+                    modifier = Modifier.padding(top = 5.dp)
+                )
+                TextField(
+                    value = viewmodel.puntuacion,
+                    onValueChange = { viewmodel.puntuacion = it },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    label = { Text(text = "Puntuacion ⭐...") },
+                    maxLines = 1,
+                    modifier = Modifier.padding(top = 10.dp)
+                )
+                TextField(
+                    value = viewmodel.resena,
+                    onValueChange = { viewmodel.resena = it },
+                    label = { Text(text = "Reseña de serie  \uD83E\uDD14....") },
+                    maxLines = 2,
+                    modifier = Modifier.padding(top = 10.dp)
+                )
+                TextField(
+                    value = viewmodel.url,
+                    onValueChange = { viewmodel.url = it },
+                    label = { Text(text = "URL de imagen (Puede ser nula)....") },
+                    maxLines = 2,
+                    modifier = Modifier.padding(top = 10.dp)
+                )
+                Button(onClick = {
+                    /*Al pulsar sobre añadir, se crea la serie con los atributos del viewmodel, se le pasa por parametros a la funcion meterSerie.
+                    * A continuacion, se restablecen los datos de las variables de la serie del viewmodel.
+                    * Por ultimo, se cambia la propiedad de pulsado a false, se suma 1 a la cantidad de series y se recarga la lista de series*/
+                    viewmodel.meterSerie(
+                        viewmodel.creaserie(
+                            viewmodel.nombre,
+                            viewmodel.puntuacion,
+                            viewmodel.resena,
+                            viewmodel.url
+                        )
+                    )
+                    viewmodel.datosACero()
+                    viewmodel.pulsado = false
+                    viewmodel.numseriesdeUser += 1
+                    viewmodel.obtenerSeries()
+                }, colors = ButtonDefaults.buttonColors(containerColor = Color.Black), modifier = Modifier.padding(top = 10.dp)) {
+                    Text(text = "Añadir", color = Color.White, modifier = Modifier.padding(5.dp))
+                }
             }
-    }})
+        })
 }
 
+/**
+ * Esta funcion composable es la encargada de mostrar los datos de la serie.
+ * Consta de una columna, y una row, que en su parte izquierda tiene la imagen de la serie y a la derecha las propiedades de la serie (nombre,puntuacion,reseña)
+ * @param Serie es la serie que se mostrará con sus propiedas en la funcion ShowSerie
+ */
 @Composable
-fun ShowSerie(Serie: Serie){
+fun ShowSerie(Serie: Serie) {
     Column(
         Modifier
             .fillMaxSize()
-            .background(Color(232, 239, 236)), horizontalAlignment = Alignment.CenterHorizontally) {
-        Row(modifier = Modifier
-            .size(330.dp, 172.dp)
-            .clip(RoundedCornerShape(30.dp))
-            .background(color = Color(35, 54, 71)), verticalAlignment = Alignment.CenterVertically) {
+            .background(Color(232, 239, 236)), horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row(
+            modifier = Modifier
+                .size(330.dp, 172.dp)
+                .clip(RoundedCornerShape(30.dp))
+                .background(color = Color(35, 54, 71)),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             AsyncImage(
                 model = Serie.urlimagen,
                 contentDescription = null,
@@ -121,10 +230,27 @@ fun ShowSerie(Serie: Serie){
             Column(
                 Modifier
                     .fillMaxSize()
-                    .padding(top = 10.dp, start = 10.dp, end = 5.dp)) {
-                Text(text = Serie.nombre, color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.Bold)
-                Text(text = "PUNTUACION : ${Serie.puntuacion} ⭐",color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.Medium, modifier = Modifier.padding(top = 10.dp))
-                Text(text = "Reseña: ${Serie.resena} ",color = Color.White, fontWeight = FontWeight.Light,modifier = Modifier.padding(top = 10.dp))
+                    .padding(top = 10.dp, start = 10.dp, end = 5.dp)
+            ) {
+                Text(
+                    text = Serie.nombre,
+                    color = Color.White,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = "PUNTUACION : ${Serie.puntuacion} ⭐",
+                    color = Color.White,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.padding(top = 10.dp)
+                )
+                Text(
+                    text = "Reseña: ${Serie.resena} ",
+                    color = Color.White,
+                    fontWeight = FontWeight.Light,
+                    modifier = Modifier.padding(top = 10.dp)
+                )
             }
         }
     }
