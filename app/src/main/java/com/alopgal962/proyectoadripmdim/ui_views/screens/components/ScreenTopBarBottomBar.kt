@@ -1,4 +1,4 @@
-package com.alopgal962.proyectoadripmdim.ui.screens
+package com.alopgal962.proyectoadripmdim.ui_views.screens.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alopgal962.proyectoadripmdim.R
 
+// Esta funcion es la barra que aparece arriba en las pantallas del programa, consta de una row
+//con el icono de la app y el nombre
 @Preview(showBackground = true)
 @Composable
 fun Topbar(){
@@ -36,6 +38,16 @@ fun Topbar(){
     }
 }
 
+/**
+ * Esta funcion es la barra que aparece abajo, cuenta con 3 parametros, 3 funciones lambda, que seran
+ * llamadas cuando se toque la correspondiente imagen
+ * @param onCasaClick se le pasará un parametro que se ejecutará al pulsar la imagen, navegará hacia el apartado casa
+ * @param onSeriesClick se le pasará un parametro que se ejecutará al pulsar la imagen de las series, navegará hacia el apartado series, donde estan
+ * todas las series y se pueden añadir mas
+ * @param onUserClick se le pasará un parametro que se ejecutará al pulsar la imagen del usuario, navegará hacia el apartado user donde estará
+ * las estadisticas del usuario
+ *
+ */
 @Composable
 fun Bottombar(onCasaClick:() -> Unit?,onSeriesClick:() -> Unit?, onUserClick:() -> Unit?){
     Row(

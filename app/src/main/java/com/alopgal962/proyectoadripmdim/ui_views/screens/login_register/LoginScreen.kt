@@ -1,4 +1,4 @@
-package com.alopgal962.proyectoadripmdim.ui.screens
+package com.alopgal962.proyectoadripmdim.ui_views.screens.login_register
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -21,8 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,12 +32,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.alopgal962.proyectoadripmdim.R
-import com.alopgal962.proyectoadripmdim.VM.VMFire
+import com.alopgal962.proyectoadripmdim.VM.AppViewmodel
+import com.alopgal962.proyectoadripmdim.VM.LoginRegisterViewmodel
+import com.alopgal962.proyectoadripmdim.model.Routes
 
+/**
+ * @author AdrianPRG
+ *
+ * @param navController servirá para navegar hacia las distintas pantallas
+ * @param viewmodel es el viewmodel que maneja el inicio de sesion
+ */
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navController: NavController,viewmodel: VMFire) {
+fun LoginScreen(navController: NavController,viewmodel: LoginRegisterViewmodel) {
     Scaffold(topBar = {
         Row(
             Modifier
@@ -68,6 +74,7 @@ fun LoginScreen(navController: NavController,viewmodel: VMFire) {
                 contentDescription = "Foto Usuario Login",
                 Modifier.size(105.dp, 100.dp)
             )
+            //Textfield para el valor del correo electronico
             TextField(
                 value = viewmodel.correoelectronico,
                 onValueChange = { viewmodel.correoelectronico = it },
@@ -92,6 +99,7 @@ fun LoginScreen(navController: NavController,viewmodel: VMFire) {
                 maxLines = 1
 
             )
+            //Textfield para el valor de la contraseña
             TextField(
                 value =viewmodel.contrasena,
                 onValueChange = { viewmodel.contrasena = it },
@@ -115,8 +123,14 @@ fun LoginScreen(navController: NavController,viewmodel: VMFire) {
                 colors = TextFieldDefaults.textFieldColors(containerColor = Color.White),
                 maxLines = 1
             )
+            /*
+                Al hacer click, se llama a viewmodel iniciarsesion, el cual recibe una lambda, donde navegaremos hacia la pantalla main
+                Ademas, llamamos a meterDatosUsuario, para iniciar el usuario que esta ahora en la base de datos.
+                Si no existe el usuario lo crea, si no continua
+             */
             Button(
-                onClick = { viewmodel.iniciarsesion { navController.navigate("Main") } },
+                onClick = { viewmodel.iniciarsesion { navController.navigate(Routes.screenmain.route) }
+                          viewmodel.meterdatosUsuario()},
                 modifier = Modifier
                     .size(150.dp, 90.dp)
                     .padding(top = 35.dp),
@@ -129,7 +143,11 @@ fun LoginScreen(navController: NavController,viewmodel: VMFire) {
                     fontSize = 17.sp
                 )
             }
-            Text(text = " ⚫ No tengo cuenta ", color = Color.White, fontWeight = FontWeight.Bold, modifier = Modifier.padding(end = 160.dp, top = 55.dp).clickable { navController.navigate("Register") })
+            //Al hacer click en el texto iremos a la screen register, por si no tiene cuenta el usuario
+            Text(text = " ⚫ No tengo cuenta ", color = Color.White, fontWeight = FontWeight.SemiBold, modifier = Modifier
+                .padding(end = 160.dp, top = 45.dp)
+                .clickable { navController.navigate("Register")
+                viewmodel.borrarcampos()})
         }
     }
 }

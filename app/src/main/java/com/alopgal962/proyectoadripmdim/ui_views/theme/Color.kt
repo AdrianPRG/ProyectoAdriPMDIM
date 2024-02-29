@@ -1,4 +1,4 @@
-package com.alopgal962.proyectoadripmdim.ui.theme
+package com.alopgal962.proyectoadripmdim.ui_views.theme
 
 import androidx.compose.ui.graphics.Color
 

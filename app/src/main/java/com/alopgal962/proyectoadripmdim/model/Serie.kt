@@ -1,6 +1,4 @@
-package com.alopgal962.proyectoadripmdim.ui.screens
-
-import android.util.Log
+package com.alopgal962.proyectoadripmdim.model
 
 class Serie {
     var nombre:String=""

@@ -1,4 +1,4 @@
-package com.alopgal962.proyectoadripmdim.ui.theme
+package com.alopgal962.proyectoadripmdim.ui_views.theme
 
 import android.app.Activity
 import android.os.Build
