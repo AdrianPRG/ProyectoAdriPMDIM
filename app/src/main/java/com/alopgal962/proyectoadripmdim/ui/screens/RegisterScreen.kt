@@ -41,10 +41,6 @@ import com.alopgal962.proyectoadripmdim.VM.VMFire
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(navController: NavController, ViewmodelVM: VMFire) {
-    var email by ViewmodelVM.correoelectronico
-    var contrasena by ViewmodelVM.contrasena
-    var repitecontrasena by ViewmodelVM.repitecontrasena
-
     Scaffold(topBar = {
         Row(
             Modifier
@@ -73,8 +69,8 @@ fun RegisterScreen(navController: NavController, ViewmodelVM: VMFire) {
                 Modifier.size(105.dp, 100.dp)
             )
             TextField(
-                value = email,
-                onValueChange = { email = it },
+                value = ViewmodelVM.correoelectronico,
+                onValueChange = { ViewmodelVM.correoelectronico = it },
                 label = {
                     Text(
                         "Introduce tu correo electronico",
@@ -99,8 +95,8 @@ fun RegisterScreen(navController: NavController, ViewmodelVM: VMFire) {
                 maxLines = 1
             )
             TextField(
-                value = contrasena,
-                onValueChange = { contrasena = it },
+                value = ViewmodelVM.contrasena,
+                onValueChange = { ViewmodelVM.contrasena = it },
                 label = {
                     Text(
                         "Introduce tu contraseña",
@@ -125,8 +121,8 @@ fun RegisterScreen(navController: NavController, ViewmodelVM: VMFire) {
                 maxLines = 1
             )
             TextField(
-                value = repitecontrasena,
-                onValueChange = { repitecontrasena = it },
+                value = ViewmodelVM.repitecontrasena,
+                onValueChange = { ViewmodelVM.repitecontrasena = it },
                 label = {
                     Text(
                         "Repite tu contraseña",
@@ -158,7 +154,7 @@ fun RegisterScreen(navController: NavController, ViewmodelVM: VMFire) {
                 horizontalArrangement = Arrangement.Center
             ) {
                 Button(
-                    onClick = { ViewmodelVM.crearemailycontrasena({ navController.navigate("Login") }) },
+                    onClick = { ViewmodelVM.crearemailycontrasena({ navController.navigate("Main") }) },
                     modifier = Modifier
                         .clip(RoundedCornerShape(20.dp))
                         .size(150.dp, 70.dp),

@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHost
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -16,6 +17,7 @@ import com.alopgal962.proyectoadripmdim.VM.VMFire
 import com.alopgal962.proyectoadripmdim.ui.screens.LoginScreen
 import com.alopgal962.proyectoadripmdim.ui.screens.MainScreen
 import com.alopgal962.proyectoadripmdim.ui.screens.RegisterScreen
+import com.alopgal962.proyectoadripmdim.ui.screens.SeriesScreens
 import com.alopgal962.proyectoadripmdim.ui.theme.ProyectoAdriPMDIMTheme
 
 class MainActivity : ComponentActivity() {
@@ -35,6 +37,7 @@ class MainActivity : ComponentActivity() {
                         composable("Register"){ RegisterScreen(navController,viewmodelFire) }
                         composable("Login"){ LoginScreen(navController,viewmodelFire)}
                         composable("Main"){ MainScreen(navController,viewmodelFire )}
+                        composable("Series"){ SeriesScreens(navController,viewmodelFire )}
                     }
                 }
             }

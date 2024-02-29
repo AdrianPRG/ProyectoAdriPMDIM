@@ -3,6 +3,7 @@ package com.alopgal962.proyectoadripmdim.ui.screens
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -38,9 +39,7 @@ import com.alopgal962.proyectoadripmdim.VM.VMFire
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navController: NavController,ViewmodelVM: VMFire) {
-    var correo by ViewmodelVM.correoelectronico
-    var contrasena by ViewmodelVM.contrasena
+fun LoginScreen(navController: NavController,viewmodel: VMFire) {
     Scaffold(topBar = {
         Row(
             Modifier
@@ -70,8 +69,8 @@ fun LoginScreen(navController: NavController,ViewmodelVM: VMFire) {
                 Modifier.size(105.dp, 100.dp)
             )
             TextField(
-                value = correo,
-                onValueChange = { correo = it },
+                value = viewmodel.correoelectronico,
+                onValueChange = { viewmodel.correoelectronico = it },
                 label = {
                     Text(
                         "Introduce tu correo electronico",
@@ -94,8 +93,8 @@ fun LoginScreen(navController: NavController,ViewmodelVM: VMFire) {
 
             )
             TextField(
-                value = contrasena,
-                onValueChange = { contrasena = it },
+                value =viewmodel.contrasena,
+                onValueChange = { viewmodel.contrasena = it },
                 label = {
                     Text(
                         "Introduce tu contraseña",
@@ -111,16 +110,16 @@ fun LoginScreen(navController: NavController,ViewmodelVM: VMFire) {
                             bottomStart = 15.dp
                         )
                     )
-                    .padding(top = 30.dp)
+                    .padding(top = 35.dp)
                     .size(290.dp, 60.dp),
                 colors = TextFieldDefaults.textFieldColors(containerColor = Color.White),
                 maxLines = 1
             )
             Button(
-                onClick = { ViewmodelVM.iniciarsesion { navController.navigate("Main") } },
+                onClick = { viewmodel.iniciarsesion { navController.navigate("Main") } },
                 modifier = Modifier
-                    .size(150.dp, 80.dp)
-                    .padding(top = 30.dp),
+                    .size(150.dp, 90.dp)
+                    .padding(top = 35.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(110, 149, 114))
             ) {
                 Text(
@@ -129,8 +128,8 @@ fun LoginScreen(navController: NavController,ViewmodelVM: VMFire) {
                     fontWeight = FontWeight.Bold,
                     fontSize = 17.sp
                 )
-
             }
+            Text(text = " ⚫ No tengo cuenta ", color = Color.White, fontWeight = FontWeight.Bold, modifier = Modifier.padding(end = 160.dp, top = 55.dp).clickable { navController.navigate("Register") })
         }
     }
 }
