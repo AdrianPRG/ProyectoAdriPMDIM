@@ -11,6 +11,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import kotlin.Exception
 
 /**
@@ -85,6 +86,8 @@ class AppViewmodel : ViewModel() {
      * Recibe una serie, y llama a la instancia de firestore, llama a la coleccion Series, y le crea un nuevo documento
      * donde asigna el campo email al email de firebase Autentication, el nombre al nombre de la serie pasada por parametos
      * puntuacion a la puntuacion de la serie, y asi con los demas campos.
+     * Los documentos se idenficarán mediante email_nombreSerie, esto nos permite tener mas organizado los documentos de la coleccion,
+     * ademas de que nos servira para buscarlos cuando queramos eliminarlos.
      * @param serie es la serie que se le pasa y que se introducirá a la base de datos
      */
 
@@ -92,7 +95,7 @@ class AppViewmodel : ViewModel() {
         viewModelScope.launch {
             try {
                 if (serie.nombre!="" && serie.resena!=""){
-                    firebasefirestore.collection("Series").document().set(
+                    firebasefirestore.collection("Series").document("${firebaseauth.currentUser!!.email}_${serie.nombre}").set(
                         hashMapOf(
                             "Email" to firebaseauth.currentUser!!.email.toString(),
                             "Nombre" to serie.nombre,
@@ -118,7 +121,7 @@ class AppViewmodel : ViewModel() {
     fun obtenerSeries() {
         viewModelScope.launch {
             try {
-                val serieactual = mutableListOf<Serie>()
+                var listatemporal = mutableListOf<Serie>()
                 firebasefirestore.collection("Series").whereEqualTo("Email",firebaseauth.currentUser!!.email.toString()).get().addOnSuccessListener { documents ->
                     for (document in documents) {
                         var serie = Serie()
@@ -126,15 +129,35 @@ class AppViewmodel : ViewModel() {
                         serie.puntuacion = document.getLong("puntuacion")?.toInt() ?: 10
                         serie.resena = document.getString("resena") ?: "Decent"
                         serie.urlimagen = document.getString("URL") ?: "Buenas"
-                        serieactual.add(serie)
+                        listatemporal.add(serie)
                     }
-                    listaseries=serieactual
+                    listaseries=listatemporal
                 }
                     .addOnFailureListener { exception ->
                         Log.d("ERRORQUE", "Error getting documents: ", exception)
                     }
             }catch (e:Exception){
                 Log.e("ObtenerDatos", "Error al obtener datos: ${e.message}")
+            }
+        }
+    }
+
+    /*
+    La funcion eliminar serie recorre la lista de series, y como hemos comentado, los documentos se guardan con el formato email_nombreserie, entonces,
+    para cada serie, le decimos a firebase que borre de la base de datos, el documento que contenga nuestroEmail_serieactual del bucle
+    Eliminando asi todas las series
+     */
+    fun eliminarseries(){
+        viewModelScope.launch {
+            try {
+                for (serie in listaseries){
+                    firebasefirestore.collection("Series").document("${firebaseauth.currentUser!!.email}_${serie.nombre}").delete().addOnSuccessListener{
+                        Log.d("DeleteCorrect","Eliminacion completada")
+                    }
+                }
+            }
+            catch (e:Exception){
+                Log.d("DeleteError","ERROR al borrar los datos")
             }
         }
     }

@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.screenlogin.route){ LoginScreen(navController,viewmodelLogin) }
                         composable(Routes.screenmain.route){ MainScreen(navController,viewmodelFire ) }
                         composable(Routes.screenseries.route){ SeriesScreens(navController,viewmodelFire ) }
-                        composable(Routes.screenuser.route){ UserDataScreen(navController,viewmodelFire ) }
+                        composable(Routes.screenuser.route){ UserDataScreen(navController,viewmodelFire, viewmodelLogin ) }
 
                     }
                 }
