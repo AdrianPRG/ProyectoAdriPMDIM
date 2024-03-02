@@ -45,6 +45,8 @@ class AppViewmodel : ViewModel() {
     var numseriesdeUser by mutableStateOf(0)
     var mediadeUser by mutableStateOf(0f)
 
+    var pulsaborrar by mutableStateOf(false)
+
 
     /**
      * La funcion crearserie recibe los parametros para crear una serie, comprueba que el nombre y la puntuacion no sean nulos
@@ -191,6 +193,16 @@ class AppViewmodel : ViewModel() {
                 Log.d("ERRORUSEROBTAIN","Error al obtener el numero de libros")
             }
         }
+    }
+
+    /*
+    Esta funcion se encarga de que, una vez se pulse sobre eliminar, se quite la pantalla de dialog
+    Se llama a la funcion de eliminar Series, y se refrescan los datos de usuario (calificaciones, media, etc)
+     */
+    fun seriesDeleted(){
+        pulsaborrar=false
+        eliminarseries()
+        obtenerdatosUsuario()
     }
 
 

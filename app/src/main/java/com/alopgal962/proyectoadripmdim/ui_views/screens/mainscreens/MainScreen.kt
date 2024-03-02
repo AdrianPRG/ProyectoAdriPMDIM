@@ -62,7 +62,7 @@ fun MainScreen(navController: NavController, viewmodel: AppViewmodel) {
                         .fillMaxSize()
                         .padding(bottom = 30.dp))
                 }
-                Text(text = "Tus series, siempre contigo ;)", fontSize = 19.sp, fontStyle = FontStyle.Italic , fontFamily = FontFamily.SansSerif, color = Color.White, fontWeight = FontWeight.SemiBold, modifier  = Modifier.padding(5.dp))
+                Text(text = "Tus series, siempre contigo", fontSize = 20.sp, fontStyle = FontStyle.Italic , fontFamily = FontFamily.SansSerif, color = Color.White, fontWeight = FontWeight.SemiBold, modifier  = Modifier.padding(5.dp))
             }
             Column(Modifier.padding(top = 30.dp)) {
                 Image(painter = painterResource(id = R.drawable.enter), contentDescription = "Imagen enter", modifier = Modifier.clickable {

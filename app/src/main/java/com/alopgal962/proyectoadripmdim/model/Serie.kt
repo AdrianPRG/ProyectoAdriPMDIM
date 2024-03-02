@@ -31,8 +31,8 @@ class Serie {
             if (value!!.length<=0){
                 field="Decent"
             }
-            else if (value.length>50){
-                field=value.take(50)
+            else if (value.length>55){
+                field=value.take(55)
             }
             else field=value
         }

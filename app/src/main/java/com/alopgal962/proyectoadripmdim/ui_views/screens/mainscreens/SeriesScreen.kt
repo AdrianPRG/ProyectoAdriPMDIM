@@ -92,7 +92,7 @@ fun SeriesScreens(navController: NavController, viewmodel: AppViewmodel) {
                         modifier = Modifier.padding(top = 20.dp),
                         verticalArrangement = Arrangement.spacedBy(20.dp)
                     ) {
-                        items(viewmodel.listaseries) { serie ->
+                        items(viewmodel.listaseries.sortedBy { it.puntuacion }.asReversed()) { serie ->
                             ShowSerie(Serie = serie)
                         }
                     }
