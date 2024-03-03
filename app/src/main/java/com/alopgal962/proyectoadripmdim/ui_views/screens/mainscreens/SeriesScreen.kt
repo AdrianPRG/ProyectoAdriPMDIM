@@ -149,13 +149,31 @@ fun AddSerie(viewmodel: AppViewmodel, quitar: () -> Unit) {
     AlertDialog(
         title = { Text(text = "Añadir Nueva Serie") },
         onDismissRequest = { quitar() },
-        confirmButton = { /* */ },
+        /*Al pulsar sobre añadir, se crea la serie con los atributos del viewmodel, se le pasa por parametros a la funcion meterSerie.
+                    * A continuacion, se restablecen los datos de las variables de la serie del viewmodel.
+                    * Por ultimo, se cambia la propiedad de pulsado a false, se suma 1 a la cantidad de series y se recarga la lista de series*/
+        confirmButton = { Button(onClick = {
+            viewmodel.meterSerie(
+                viewmodel.creaserie(
+                    viewmodel.nombre,
+                    viewmodel.puntuacion,
+                    viewmodel.resena,
+                    viewmodel.url
+                )
+            )
+            viewmodel.datosACero()
+            viewmodel.pulsado = false
+            viewmodel.numseriesdeUser += 1
+            viewmodel.obtenerSeries()
+        }, colors = ButtonDefaults.buttonColors(containerColor = Color.Black), modifier = Modifier.padding(top = 10.dp)) {
+            Text(text = "Añadir", color = Color.White, modifier = Modifier.padding(5.dp))
+        } },
         text = {
             Column {
                 TextField(
                     value = viewmodel.nombre,
                     onValueChange = { viewmodel.nombre = it },
-                    label = { Text(text = "Nombre de serie...") },
+                    label = { Text(text = "\uD83D\uDD20 Nombre de serie...") },
                     maxLines = 1,
                     modifier = Modifier.padding(top = 5.dp)
                 )
@@ -163,43 +181,24 @@ fun AddSerie(viewmodel: AppViewmodel, quitar: () -> Unit) {
                     value = viewmodel.puntuacion,
                     onValueChange = { viewmodel.puntuacion = it },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    label = { Text(text = "Puntuacion ⭐...") },
+                    label = { Text(text = "⭐ Puntuacion...") },
                     maxLines = 1,
                     modifier = Modifier.padding(top = 10.dp)
                 )
                 TextField(
                     value = viewmodel.resena,
                     onValueChange = { viewmodel.resena = it },
-                    label = { Text(text = "Reseña de serie  \uD83E\uDD14....") },
+                    label = { Text(text = "\uD83E\uDD14 Reseña de serie....") },
                     maxLines = 2,
                     modifier = Modifier.padding(top = 10.dp)
                 )
                 TextField(
                     value = viewmodel.url,
                     onValueChange = { viewmodel.url = it },
-                    label = { Text(text = "URL de imagen (Puede ser nula)....") },
+                    label = { Text(text = "\uD83D\uDD87️ URL de imagen (Puede ser nula)....") },
                     maxLines = 2,
                     modifier = Modifier.padding(top = 10.dp)
                 )
-                Button(onClick = {
-                    /*Al pulsar sobre añadir, se crea la serie con los atributos del viewmodel, se le pasa por parametros a la funcion meterSerie.
-                    * A continuacion, se restablecen los datos de las variables de la serie del viewmodel.
-                    * Por ultimo, se cambia la propiedad de pulsado a false, se suma 1 a la cantidad de series y se recarga la lista de series*/
-                    viewmodel.meterSerie(
-                        viewmodel.creaserie(
-                            viewmodel.nombre,
-                            viewmodel.puntuacion,
-                            viewmodel.resena,
-                            viewmodel.url
-                        )
-                    )
-                    viewmodel.datosACero()
-                    viewmodel.pulsado = false
-                    viewmodel.numseriesdeUser += 1
-                    viewmodel.obtenerSeries()
-                }, colors = ButtonDefaults.buttonColors(containerColor = Color.Black), modifier = Modifier.padding(top = 10.dp)) {
-                    Text(text = "Añadir", color = Color.White, modifier = Modifier.padding(5.dp))
-                }
             }
         })
 }

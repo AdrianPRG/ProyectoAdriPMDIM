@@ -142,23 +142,20 @@ fun UserDataScreen(
                         )
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.logout),
-                        colorFilter = ColorFilter.tint(Color.Yellow),
-                        contentDescription = "Imagen log Out",
+                        painter = painterResource(id = R.drawable.papelera),
+                        colorFilter = ColorFilter.tint(Color.Red),
+                        contentDescription = "Imagen Papelera",
                         modifier = Modifier
-                            .padding(8.dp)
+                            .padding(top = 4.dp, end = 20.dp)
                             .size(30.dp, 40.dp)
                     )
-                    Text(text = "Cerrar Sesion ",
+                    Text(text = "Borrar todas las series",
                         fontSize = 17.sp,
                         color = Color.White,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier
                             .padding(start = 10.dp, top = 16.dp)
-                            .clickable {
-                                viewmodelAuth.borrarcampos()
-                                navController.navigate(Routes.screenlogin.route)
-                            })
+                            .clickable { viewmodel.pulsaborrar = true })
                 }
                 Row(
                     horizontalArrangement = Arrangement.Center, modifier = Modifier
@@ -170,20 +167,23 @@ fun UserDataScreen(
                         )
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.papelera),
-                        colorFilter = ColorFilter.tint(Color.Red),
-                        contentDescription = "Imagen Papelera",
+                        painter = painterResource(id = R.drawable.logout),
+                        colorFilter = ColorFilter.tint(Color.Yellow),
+                        contentDescription = "Imagen log Out",
                         modifier = Modifier
-                            .padding(8.dp)
+                            .padding(top = 4.dp, end = 50.dp)
                             .size(30.dp, 40.dp)
                     )
-                    Text(text = "Borrar todas las series",
+                    Text(text = "Cerrar Sesion ",
                         fontSize = 17.sp,
                         color = Color.White,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier
-                            .padding(start = 10.dp, top = 16.dp)
-                            .clickable { viewmodel.pulsaborrar = true })
+                            .padding( top = 16.dp, end = 30.dp)
+                            .clickable {
+                                viewmodelAuth.borrarcampos()
+                                navController.navigate(Routes.screenlogin.route)
+                            })
                 }
             }
         } else
